@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Smart Recruit</title>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🚀</text></svg>">
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    
+    <link rel="stylesheet" href="style.css">
+    
+    <style>
+        /* Small fix for select dropdown appearance */
+        .input-gamified {
+            background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3e%3cpath fill='none' stroke='%23a0aec0' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M2 5l6 6 6-6'/%3e%3c/svg%3e");
+            background-repeat: no-repeat;
+            background-position: right 0.75rem center;
+            background-size: 0.65em 0.65em;
+        }
+    </style>
+</head>
+<body class="bg-gray-900 text-gray-200">
+
+    <div id="loading" class="fixed inset-0 bg-gray-900 bg-opacity-80 flex items-center justify-center hidden z-50">
+        <div class="spinner"></div>
+    </div>
+
+    <div class="container min-h-screen flex flex-col items-center py-10">
+        
+        <header class="w-full text-center mb-10">
+            <h1 class="text-4xl sm:text-5xl font-extrabold text-white mb-2 heading tracking-wide">Smart Recruit</h1>
+            <p class="text-lg text-gray-400 font-inter mb-4">Level up your career.</p>
+            <p class="text-sm text-gray-500 font-inter mb-4">
+                User ID: <span id="userIdDisplay" class="font-mono text-xs bg-gray-700 px-2 py-1 rounded-full text-gray-400">Loading...</span>
+            </p>
+            <nav class="flex justify-center space-x-4">
+                <button id="showLandingBtn" class="py-2 px-4 rounded-full font-semibold text-gray-400 hover:bg-gray-800 transition font-inter">Home</button>
+                <button id="showCompanyBtn" class="py-2 px-4 rounded-full font-semibold text-gray-400 hover:bg-gray-800 transition font-inter">Company Portal</button>
+                <button id="showCandidateBtn" class="py-2 px-4 rounded-full font-semibold text-gray-400 hover:bg-gray-800 transition font-inter">Candidate Portal</button>
+            </nav>
+        </header>
+
+        <main id="app-content" class="w-full flex-grow flex items-center justify-center">
+
+            <div id="landingView" class="main-card text-center transition-opacity duration-500 max-w-2xl">
+                <h2 class="text-3xl font-bold mb-4 text-teal-400 heading">Welcome!</h2>
+                <p class="text-lg text-gray-300 font-inter">This platform helps you find the right job. Select your role above to begin.</p>
+                <p class="text-sm text-gray-500 font-inter mt-4">
+                    Companies can post jobs. Candidates can submit their resume to get a matching score.
+                </p>
+            </div>
+
+            <div id="companyView" class="main-card hidden w-full transition-opacity duration-500 max-w-4xl">
+                <h2 class="text-3xl font-bold mb-6 text-center text-teal-400 heading">Company Portal</h2>
+
+                <div class="mb-8">
+                    <h3 class="text-2xl font-semibold mb-4 text-sky-400 heading">Post a New Job</h3>
+                    
+                    <form id="postJobForm" class="space-y-4">
+                        <input type="text" id="jobTitle" placeholder="Job Title" required class="input-gamified rounded-lg font-inter">
+                        
+                        <input type="number" id="jobExperience" placeholder="Required Experience (Years)" min="0" value="0" required class="input-gamified rounded-lg font-inter">
+                        
+                        <textarea id="jobSkills" placeholder="Critical Keywords / Must-Have Skills (e.g., Python, SQL, AWS, Scrum)" rows="3" required class="input-gamified rounded-lg font-inter"></textarea>
+                        
+                        <select id="jobEducation" required class="input-gamified rounded-lg font-inter appearance-none pr-10">
+                            <option value="" disabled selected>Select Required Education Level</option>
+                            <option value="None">None Required</option>
+                            <option value="High School">High School / GED</option>
+                            <option value="Associate's Degree">Associate's Degree</option>
+                            <option value="Bachelor's Degree">Bachelor's Degree</option>
+                            <option value="Master's Degree">Master's Degree</option>
+                            <option value="PhD">PhD or Doctorate</option>
+                        </select>
+                        
+                        <select id="jobType" required class="input-gamified rounded-lg font-inter appearance-none pr-10">
+                            <option value="" disabled selected>Select Required Job Type</option>
+                            <option value="Full-Time">Full-Time</option>
+                            <option value="Part-Time">Part-Time</option>
+                            <option value="Contract">Contract</option>
+                            <option value="Internship">Internship</option>
+                        </select>
+                        
+                        <div class="p-3 rounded-lg border border-gray-700 bg-gray-700/30">
+                            <label class="text-sm font-semibold text-gray-400 block mb-2">Work Preference:</label>
+                            <div class="flex flex-wrap gap-4">
+                                <label class="inline-flex items-center">
+                                    <input type="radio" name="jobPreference" value="Fully Remote" required class="form-radio text-teal-500 bg-gray-700 border-gray-600">
+                                    <span class="ml-2 text-sm">Fully Remote</span>
+                                </label>
+                                <label class="inline-flex items-center">
+                                    <input type="radio" name="jobPreference" value="Hybrid" class="form-radio text-teal-500 bg-gray-700 border-gray-600">
+                                    <span class="ml-2 text-sm">Hybrid</span>
+                                </label>
+                                <label class="inline-flex items-center">
+                                    <input type="radio" name="jobPreference" value="On-Site" class="form-radio text-teal-500 bg-gray-700 border-gray-600">
+                                    <span class="ml-2 text-sm">On-Site</span>
+                                </label>
+                            </div>
+                        </div>
+
+                        <textarea id="jobDescription" placeholder="Detailed Job Description (responsibilities, benefits, etc.)" rows="6" required class="input-gamified rounded-lg font-inter"></textarea>
+                        
+                        <button type="submit" class="btn-gamified w-full rounded-lg flex items-center justify-center">
+                            <i class="fas fa-plus-circle mr-2"></i>
+                            Post Job
+                        </button>
+                    </form>
+                    </div>
+
+                <div>
+                    <h3 class="text-2xl font-semibold mb-4 text-sky-400 heading">Your Posted Jobs</h3>
+                    <div id="companyJobsList" class="space-y-4">
+                        <p class="text-gray-500 text-center font-inter">No jobs posted yet.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div id="candidateView" class="main-card hidden w-full transition-opacity duration-500 max-w-4xl">
+                <h2 class="text-3xl font-bold mb-6 text-center text-teal-400 heading">Candidate Portal</h2>
+
+                <h3 class="text-2xl font-semibold mb-4 text-sky-400 heading">Available Jobs</h3>
+                <div id="candidateJobsList" class="space-y-4 mb-8">
+                    <p class="text-gray-500 text-center font-inter">No jobs available at the moment.</p>
+                </div>
+            </div>
+
+            <div id="applicationModal" class="fixed inset-0 bg-gray-900 bg-opacity-90 flex items-center justify-center z-40 hidden">
+                <div class="main-card max-w-2xl w-full max-h-[90vh] overflow-y-auto">
+                    <div class="flex justify-between items-center mb-4">
+                        <h3 class="text-2xl font-bold text-sky-400 heading">Applicants for <span id="modalJobTitle" class="text-teal-400 heading"></span></h3>
+                        <button id="closeModalBtn" class="text-gray-400 hover:text-white text-2xl font-bold transition">&times;</button>
+                    </div>
+                    <div id="applicationsContainer">
+                        <p class="text-gray-500 text-center font-inter">No applicants for this job yet.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div id="resumeModal" class="fixed inset-0 bg-gray-900 bg-opacity-90 flex items-center justify-center z-40 hidden">
+                <div class="main-card max-w-2xl w-full">
+                    <div class="flex justify-between items-center mb-4">
+                        <h3 class="text-2xl font-bold text-sky-400 heading">Apply for <span id="applyJobTitle" class="text-teal-400 heading"></span></h3>
+                        <button id="closeResumeModalBtn" class="text-gray-400 hover:text-white text-2xl font-bold transition">&times;</button>
+                    </div>
+                    <form id="applyForm" class="space-y-4">
+                        <input type="text" id="candidateName" placeholder="Your Name" required class="input-gamified rounded-lg font-inter">
+                        <textarea id="resumeContent" placeholder="Paste your resume content here" rows="10" required class="input-gamified rounded-lg font-inter"></textarea>
+                        
+                        <button type="submit" class="btn-gamified w-full rounded-lg">Submit Application</button>
+                    </form>
+                </div>
+            </div>
+
+        </main>
+    </div>
+
+    <script type="module" src="app.js"></script>
+</body>
+</html>

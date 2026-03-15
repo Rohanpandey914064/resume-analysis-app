@@ -1,0 +1,122 @@
+body {
+    font-family: 'Inter', sans-serif;
+    background-color: #1a202c; /* Dark charcoal background */
+    color: #e2e8f0;
+    transition: background-color 0.3s;
+}
+.container {
+    max-width: 1200px;
+    margin: auto;
+    padding: 2rem;
+}
+.main-card {
+    background-color: #2d3748; /* Darker card background */
+    border-radius: 1.5rem;
+    border: 2px solid #4a5568;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+    padding: 3rem;
+    position: relative;
+    z-index: 10;
+    overflow: hidden;
+    transition: all 0.5s ease-in-out;
+}
+.main-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, rgba(52, 211, 153, 0.1) 0%, rgba(100, 211, 255, 0.1) 100%);
+    z-index: -1;
+    filter: blur(50px);
+    opacity: 0.5;
+    transition: all 0.5s ease-in-out;
+}
+
+.heading {
+    font-family: 'Orbitron', sans-serif;
+    letter-spacing: 1px;
+}
+
+.btn-gamified {
+    background-color: #34d399; /* Bright green */
+    color: #1a202c;
+    font-family: 'Inter', sans-serif;
+    font-weight: 700;
+    padding: 0.75rem 2rem;
+    border-radius: 0.75rem;
+    box-shadow: 0 0 15px rgba(52, 211, 153, 0.5);
+    transition: all 0.2s ease-in-out;
+    transform: scale(1);
+}
+.btn-gamified:hover {
+    background-color: #10b981; /* Darker green on hover */
+    box-shadow: 0 0 25px rgba(52, 211, 153, 0.8);
+    transform: scale(1.05);
+}
+
+.input-gamified {
+    background-color: #2d3748;
+    border: 1px solid #4a5568;
+    border-radius: 0.5rem;
+    padding: 0.75rem;
+    width: 100%;
+    color: #e2e8f0;
+    box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.6);
+    transition: border-color 0.2s, box-shadow 0.2s;
+}
+.input-gamified:focus {
+    outline: none;
+    border-color: #63b3ed;
+    box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.6), 0 0 10px rgba(99, 179, 237, 0.5);
+}
+ 
+.spinner {
+    border: 4px solid rgba(255, 255, 255, 0.1);
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    border-left-color: #34d399;
+    animation: spin 1s linear infinite;
+}
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+.delete-btn {
+    background-color: #ef4444;
+    color: white;
+    padding: 0.5rem 1rem;
+    border-radius: 0.5rem;
+    transition: background-color 0.2s;
+}
+.delete-btn:hover {
+    background-color: #dc2626;
+}
+
+/* Gamified card effects */
+.card-item {
+    background-color: #242c38;
+    border-radius: 0.75rem;
+    padding: 1.5rem;
+    border: 1px solid #4a5568;
+    transition: transform 0.2s, box-shadow 0.2s;
+    position: relative;
+    overflow: hidden;
+}
+.card-item:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+}
+
+.score-badge {
+    font-family: 'Orbitron', sans-serif;
+    font-weight: 700;
+    padding: 0.5rem 1rem;
+    border-radius: 999px;
+    text-shadow: 0 0 5px rgba(255, 255, 255, 0.5);
+}
+.score-green { background-color: #34d399; color: #1a202c; }
+.score-yellow { background-color: #fcd34d; color: #1a202c; }
+.score-red { background-color: #ef4444; color: #1a202c; }
