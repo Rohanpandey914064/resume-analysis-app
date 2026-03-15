@@ -17,7 +17,7 @@ const firebaseConfig = typeof _firebase_config !== 'undefined' ? JSON.parse(_fir
 const initialAuthToken = typeof __initial_auth_token !== 'undefined' ? __initial_auth_token : null;
 
 // You must provide your Gemini API Key here for resume scoring to work
-const API_KEY = "AIzaSyDOML-n4v3Ym7ltUaFjV46IFnsc6oSWD2I"; // Paste your API key here
+const API_KEY = ""; // Paste your API key here
 
 // Initialize Firebase
 let app, db, auth;
